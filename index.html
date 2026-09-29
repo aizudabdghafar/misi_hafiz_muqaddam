@@ -1293,7 +1293,7 @@
 
 ```html
 <!-- =========================================================
-     AUDIO BACKGROUND MUSIC
+     BACKGROUND MUSIC
 ========================================================== -->
 
 <audio
@@ -1302,7 +1302,6 @@
     loop
     playsinline
     webkit-playsinline
-    crossorigin="anonymous"
 >
     <source
         src="https://aizudabdghafar.github.io/audio/Langkah_Menuju_Jannah.mp3"
@@ -1312,72 +1311,64 @@
 
 
 <script>
+"use strict";
 
 /* =========================================================
-   MUSIC SYSTEM
-   ========================================================= */
+   ELEMENTS
+========================================================= */
 
-const music =
-    document.getElementById("background-music");
+const overlay = document.getElementById("launch-overlay");
+const iframe = document.getElementById("app-frame");
 
-const musicButton =
-    document.getElementById("music-btn");
+const music = document.getElementById("background-music");
+const musicButton = document.getElementById("music-btn");
+const musicToggle = document.getElementById("music-toggle");
+const musicPanel = document.getElementById("music-panel");
+const musicStatus = document.getElementById("music-status");
 
-const musicToggle =
-    document.getElementById("music-toggle");
 
-const musicPanel =
-    document.getElementById("music-panel");
-
-const musicStatus =
-    document.getElementById("music-status");
+/* =========================================================
+   STATE
+========================================================= */
 
 let musicPlaying = false;
-let musicStartedByUser = false;
+let appStarted = false;
+let loginCompleted = false;
 
 
-/* ---------------------------------------------------------
-   DEFAULT VOLUME
---------------------------------------------------------- */
+/* =========================================================
+   MUSIC INITIALIZATION
+========================================================= */
 
-if (music) {
+function initMusic() {
+
+    if (!music) return;
+
     music.volume = 0.35;
     music.muted = false;
-}
-
-
-/* ---------------------------------------------------------
-   MUSIC PANEL
---------------------------------------------------------- */
-
-function toggleMusicPanel() {
-
-    if (!musicPanel) return;
-
-    musicPanel.classList.toggle("visible");
 
 }
 
 
-/* ---------------------------------------------------------
+/* =========================================================
    UPDATE MUSIC UI
---------------------------------------------------------- */
+========================================================= */
 
 function updateMusicUI() {
 
     if (!music) return;
 
-    const isPlaying =
+    const playing =
         !music.paused &&
         !music.ended;
 
-    musicPlaying = isPlaying;
+    musicPlaying = playing;
 
 
     if (musicToggle) {
 
         musicToggle.textContent =
-            isPlaying ? "⏸️" : "▶️";
+            playing ? "⏸️" : "▶️";
 
     }
 
@@ -1386,7 +1377,7 @@ function updateMusicUI() {
 
         musicButton.classList.toggle(
             "playing",
-            isPlaying
+            playing
         );
 
     }
@@ -1394,67 +1385,74 @@ function updateMusicUI() {
 
     if (musicStatus) {
 
-        musicStatus.textContent =
-            isPlaying
-                ? "Muzik sedang dimainkan 🎵"
-                : "Tekan ▶️ untuk memainkan muzik.";
+        if (playing) {
+
+            musicStatus.textContent =
+                "Muzik sedang dimainkan 🎵";
+
+        } else if (loginCompleted) {
+
+            musicStatus.textContent =
+                "Muzik dihentikan selepas login.";
+
+        } else {
+
+            musicStatus.textContent =
+                "Tekan ▶️ untuk memainkan muzik.";
+
+        }
 
     }
 
 }
 
 
-/* ---------------------------------------------------------
-   PLAY MUSIC
---------------------------------------------------------- */
+/* =========================================================
+   START MUSIC
+   ========================================================= */
 
-async function playBackgroundMusic() {
+async function startBackgroundMusic() {
 
     if (!music) {
         return false;
     }
 
+    /*
+     * Jangan restart jika sudah bermain.
+     */
+    if (!music.paused) {
+
+        updateMusicUI();
+
+        return true;
+
+    }
+
 
     try {
 
-        /*
-         * Pastikan audio tidak muted.
-         */
         music.muted = false;
+        music.volume = 0.35;
 
 
         /*
-         * Pastikan volume valid.
+         * Pastikan source telah dimuatkan.
          */
-        music.volume =
-            Math.max(
-                0,
-                Math.min(
-                    1,
-                    Number(music.volume || 0.35)
-                )
-            );
+        if (music.readyState === 0) {
 
-
-        /*
-         * Pastikan browser sudah load source.
-         */
-        if (
-            music.readyState === 0
-        ) {
             music.load();
+
         }
 
 
         /*
          * PENTING:
-         * play() dipanggil terus daripada
-         * user click -> launchApp().
+         *
+         * Fungsi ini mesti dipanggil terus
+         * daripada klik Welcome button.
          */
         await music.play();
 
-
-        musicStartedByUser = true;
 
         musicPlaying = true;
 
@@ -1467,43 +1465,33 @@ async function playBackgroundMusic() {
 
         musicPlaying = false;
 
-        updateMusicUI();
+        console.warn(
+            "Muzik tidak dapat dimainkan:",
+            error
+        );
 
 
         /*
-         * NotAllowedError biasanya bermaksud
-         * browser menyekat playback.
+         * Browser mungkin menyekat playback.
          */
         if (
             error &&
             error.name === "NotAllowedError"
         ) {
 
-            console.warn(
-                "Browser menyekat audio autoplay.",
-                error
-            );
-
-
             if (musicStatus) {
 
                 musicStatus.textContent =
-                    "Tekan ▶️ untuk menghidupkan muzik.";
+                    "Tekan 🎵 untuk menghidupkan muzik.";
 
             }
 
         } else {
 
-            console.error(
-                "Audio gagal dimainkan:",
-                error
-            );
-
-
             if (musicStatus) {
 
                 musicStatus.textContent =
-                    "Audio tidak dapat dimainkan.";
+                    "Fail muzik tidak dapat dimainkan.";
 
             }
 
@@ -1516,11 +1504,11 @@ async function playBackgroundMusic() {
 }
 
 
-/* ---------------------------------------------------------
-   PAUSE MUSIC
---------------------------------------------------------- */
+/* =========================================================
+   STOP MUSIC
+========================================================= */
 
-function pauseBackgroundMusic() {
+function stopBackgroundMusic(resetPosition = false) {
 
     if (!music) return;
 
@@ -1528,14 +1516,20 @@ function pauseBackgroundMusic() {
 
         music.pause();
 
+        if (resetPosition) {
+
+            music.currentTime = 0;
+
+        }
+
         musicPlaying = false;
 
         updateMusicUI();
 
     } catch (error) {
 
-        console.error(
-            "Gagal pause audio:",
+        console.warn(
+            "Gagal menghentikan muzik:",
             error
         );
 
@@ -1544,67 +1538,84 @@ function pauseBackgroundMusic() {
 }
 
 
-/* ---------------------------------------------------------
+/* =========================================================
    MUSIC TOGGLE
---------------------------------------------------------- */
+========================================================= */
 
 async function toggleMusic() {
 
-    if (!music) {
+    /*
+     * Jangan benarkan muzik dihidupkan semula
+     * selepas login berjaya.
+     */
+    if (loginCompleted) {
+
+        stopBackgroundMusic(false);
+
         return;
+
     }
+
+
+    if (!music) return;
 
 
     if (music.paused) {
 
-        await playBackgroundMusic();
+        await startBackgroundMusic();
 
     } else {
 
-        pauseBackgroundMusic();
+        stopBackgroundMusic(false);
 
     }
 
 }
 
 
-/* ---------------------------------------------------------
+/* =========================================================
+   MUSIC PANEL
+========================================================= */
+
+function toggleMusicPanel() {
+
+    if (!musicPanel) return;
+
+    musicPanel.classList.toggle("visible");
+
+}
+
+
+/* =========================================================
    VOLUME
---------------------------------------------------------- */
+========================================================= */
 
 function changeVolume(value) {
 
-    if (!music) {
-        return;
-    }
+    if (!music) return;
 
-
-    const volume =
-        Math.max(
-            0,
-            Math.min(
-                1,
-                Number(value)
-            )
-        );
-
+    const volume = Math.max(
+        0,
+        Math.min(
+            1,
+            Number(value)
+        )
+    );
 
     music.volume = volume;
 
-
-    /*
-     * Jika volume > 0, pastikan tidak muted.
-     */
     if (volume > 0) {
+
         music.muted = false;
+
     }
 
 }
 
 
-/* ---------------------------------------------------------
+/* =========================================================
    AUDIO EVENTS
---------------------------------------------------------- */
+========================================================= */
 
 if (music) {
 
@@ -1653,17 +1664,9 @@ if (music) {
             updateMusicUI();
 
             console.error(
-                "Fail audio tidak dapat dimuat.",
+                "Audio error:",
                 music.error
             );
-
-
-            if (musicStatus) {
-
-                musicStatus.textContent =
-                    "Fail muzik tidak dapat dimuatkan.";
-
-            }
 
         }
     );
@@ -1672,30 +1675,37 @@ if (music) {
 
 
 /* =========================================================
-   LAUNCH APPLICATION
+   WELCOME / LAUNCH APP
 ========================================================= */
 
 async function launchApp() {
 
     /*
+     * Cegah double click.
+     */
+    if (appStarted) {
+
+        return;
+
+    }
+
+    appStarted = true;
+
+
+    /*
      * =====================================================
      * STEP 1
-     * AUDIO MESTI DIMULAKAN SEAWAL MUNGKIN
-     *
-     * Jangan tunggu iframe atau fullscreen dahulu.
-     *
-     * User click -> launchApp() -> music.play()
+     * START MUSIC TERUS DARIPADA USER CLICK
      * =====================================================
      */
 
-    const musicPromise =
-        playBackgroundMusic();
+    await startBackgroundMusic();
 
 
     /*
      * =====================================================
      * STEP 2
-     * Paparkan aplikasi dengan segera.
+     * PAPARKAN APP
      * =====================================================
      */
 
@@ -1716,9 +1726,7 @@ async function launchApp() {
     /*
      * =====================================================
      * STEP 3
-     * Fullscreen
-     *
-     * Masih berada dalam event user click.
+     * FULLSCREEN
      * =====================================================
      */
 
@@ -1753,29 +1761,254 @@ async function launchApp() {
 
     }
 
+}
+
+
+/* =========================================================
+   LOGIN BERJAYA
+========================================================= */
+
+function handleLoginSuccess() {
 
     /*
-     * =====================================================
-     * STEP 4
-     * Tunggu keputusan play().
-     *
-     * Ini TIDAK menghalang aplikasi jika browser
-     * menyekat audio.
-     * =====================================================
+     * Pastikan hanya diproses sekali.
      */
+    if (loginCompleted) {
 
+        return;
+
+    }
+
+
+    loginCompleted = true;
+
+
+    /*
+     * STOP MUSIC.
+     */
+    stopBackgroundMusic(false);
+
+
+    /*
+     * Tutup music panel jika masih terbuka.
+     */
+    if (musicPanel) {
+
+        musicPanel.classList.remove(
+            "visible"
+        );
+
+    }
+
+
+    /*
+     * Update UI.
+     */
+    updateMusicUI();
+
+
+    console.log(
+        "Login berjaya — muzik dihentikan."
+    );
+
+}
+
+
+/* =========================================================
+   POSTMESSAGE FROM APPS SCRIPT IFRAME
+========================================================= */
+
+window.addEventListener(
+    "message",
+    function(event) {
+
+        if (
+            !event ||
+            !event.data
+        ) {
+
+            return;
+
+        }
+
+
+        /*
+         * Hanya terima mesej object.
+         */
+        if (
+            typeof event.data !== "object"
+        ) {
+
+            return;
+
+        }
+
+
+        const action =
+            event.data.action;
+
+
+        /*
+         * =================================================
+         * LOGIN SUCCESS
+         * =================================================
+         */
+
+        if (
+            action === "loginSuccess"
+        ) {
+
+            handleLoginSuccess();
+
+            return;
+
+        }
+
+
+        /*
+         * =================================================
+         * MUSIC CONTROL
+         * =================================================
+         */
+
+        if (
+            action === "toggleMusic"
+        ) {
+
+            toggleMusic();
+
+            return;
+
+        }
+
+
+        /*
+         * =================================================
+         * DRAWER
+         * =================================================
+         */
+
+        if (
+            action === "toggleDrawer"
+        ) {
+
+            toggleIframeDrawer();
+
+            return;
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   IFRAME DRAWER
+========================================================= */
+
+function toggleIframeDrawer() {
+
+    if (
+        iframe &&
+        iframe.contentWindow
+    ) {
+
+        iframe.contentWindow.postMessage(
+            {
+                action: "toggleDrawer"
+            },
+            "*"
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   LOGOUT
+========================================================= */
+
+function handleLogout() {
+
+    /*
+     * Reset login state.
+     */
+    loginCompleted = false;
+    appStarted = false;
+
+
+    /*
+     * Stop music.
+     */
+    stopBackgroundMusic(true);
+
+
+    /*
+     * Exit fullscreen.
+     */
     try {
 
-        await musicPromise;
+        if (
+            document.fullscreenElement &&
+            document.exitFullscreen
+        ) {
+
+            document.exitFullscreen();
+
+        } else if (
+            document.webkitFullscreenElement &&
+            document.webkitExitFullscreen
+        ) {
+
+            document.webkitExitFullscreen();
+
+        }
 
     } catch (error) {
 
         console.warn(
-            "Music promise gagal:",
+            "Gagal keluar fullscreen:",
             error
         );
 
     }
+
+
+    /*
+     * Hide iframe.
+     */
+    if (iframe) {
+
+        iframe.style.display = "none";
+
+    }
+
+
+    /*
+     * Show welcome screen.
+     */
+    if (overlay) {
+
+        overlay.classList.remove("hidden");
+
+    }
+
+
+    updateMusicUI();
+
+
+    /*
+     * Reload selepas state UI reset.
+     */
+    setTimeout(
+        function() {
+
+            window.location.reload();
+
+        },
+        100
+    );
 
 }
 
@@ -1797,24 +2030,14 @@ document.addEventListener(
 
         if (overlay) {
 
-            overlay.classList.remove("hidden");
+            overlay.classList.remove(
+                "hidden"
+            );
 
         }
 
 
-        if (music) {
-
-            music.volume = 0.35;
-
-            music.muted = false;
-
-            /*
-             * Load awal supaya fail audio bersedia.
-             */
-            music.load();
-
-        }
-
+        initMusic();
 
         updateMusicUI();
 
@@ -1823,6 +2046,7 @@ document.addEventListener(
 
 </script>
 ```
+
 
 
 
