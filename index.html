@@ -3,1539 +3,1411 @@
 <head>
 <meta charset="UTF-8">
 
-\<meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0,
-             maximum-scale=1.0, user-scalable=no"
-\>
-
-\<meta name="theme-color" content="#071b3a">
-
-\<title>Misi Hafiz Muqaddam - Belajar & Hafaz Al-Quran Interaktif\</title>
-
-\<style>
-    \* {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family:
-            -apple-system,
-            BlinkMacSystemFont,
-            "Segoe UI",
-            Roboto,
-            Arial,
-            sans-serif;
-    }
-
-    \:root {
-        \--navy: #071b3a;
-        \--navy2: #0b2b55;
-        \--blue: #123f70;
-        \--gold: #facc15;
-        \--gold2: #fde68a;
-        \--green: #22c55e;
-        \--white: #ffffff;
-    }
-
-    html,
-    body {
-        width: 100%;
-        height: 100%;
-        overflow: hidden;
-        background:
-            radial-gradient(
-                circle at 50% 20%,
-                \#174b78 0%,
-                \#0b2b55 35%,
-                \#071b3a 75%,
-                \#030b18 100%
-            );
-    }
-
-    body {
-        position: relative;
-        color: #fff;
-    }
-
-    /\* =========================================================
-       ISLAMIC BACKGROUND
-    \========================================================= \*/
-
-    \#kids-background {
-        position: fixed;
-        inset: 0;
-        overflow: hidden;
-        z-index: 0;
-        pointer-events: none;
-    }
-
-    /\* Islamic geometric pattern \*/
-
-    \#kids-background::before {
-        content: "";
-        position: absolute;
-        inset: -100px;
-
-        opacity: 0.11;
-
-        background-image:
-            linear-gradient(30deg, #facc15 12%, transparent 12.5%, transparent 87%, #facc15 87.5%, #facc15),
-            linear-gradient(150deg, #facc15 12%, transparent 12.5%, transparent 87%, #facc15 87.5%, #facc15),
-            linear-gradient(30deg, #facc15 12%, transparent 12.5%, transparent 87%, #facc15 87.5%, #facc15),
-            linear-gradient(150deg, #facc15 12%, transparent 12.5%, transparent 87%, #facc15 87.5%, #facc15);
-
-        background-position:
-            0 0,
-            0 0,
-            20px 35px,
-            20px 35px;
-
-        background-size: 80px 140px;
-        transform: rotate(0deg);
-    }
-
-    /\* Glow \*/
-
-    .sky-glow {
-        position: absolute;
-        width: 500px;
-        height: 500px;
-        border-radius: 50%;
-
-        background:
-            radial-gradient(
-                circle,
-                rgba(250, 204, 21, 0.12),
-                transparent 68%
-            );
-
-        top: -250px;
-        right: -100px;
-
-        animation: glowMove 8s ease-in-out infinite alternate;
-    }
-
-    @keyframes glowMove {
-        from {
-            transform: translate(0, 0);
-        }
-
-        to {
-            transform: translate(-100px, 80px);
-        }
-    }
-
-    /\* Moon \*/
-
-    .moon {
-        position: absolute;
-
-        top: 80px;
-        right: 8%;
-
-        width: 85px;
-        height: 85px;
-
-        border-radius: 50%;
-
-        background: #fde68a;
-
-        box-shadow:
-            0 0 25px rgba(253, 230, 138, 0.65),
-            0 0 70px rgba(253, 230, 138, 0.25);
-
-        animation:
-            moonFloat 5s ease-in-out infinite;
-    }
-
-    .moon::after {
-        content: "";
-
-        position: absolute;
-
-        width: 78px;
-        height: 78px;
-
-        border-radius: 50%;
-
-        background: #0b2b55;
-
-        top: -10px;
-        left: 22px;
-    }
-
-    @keyframes moonFloat {
-        0%,
-        100% {
-            transform: translateY(0);
-        }
-
-        50% {
-            transform: translateY(-10px);
-        }
-    }
-
-    /\* Clouds \*/
-
-    .cloud {
-        position: absolute;
-
-        width: 150px;
-        height: 45px;
-
-        background: rgba(255, 255, 255, 0.12);
-
-        border-radius: 50px;
-
-        filter: blur(1px);
-
-        animation: cloudMove linear infinite;
-    }
-
-    .cloud::before,
-    .cloud::after {
-        content: "";
-
-        position: absolute;
-
-        background: inherit;
-
-        border-radius: 50%;
-    }
-
-    .cloud::before {
-        width: 65px;
-        height: 65px;
-
-        left: 25px;
-        bottom: 10px;
-    }
-
-    .cloud::after {
-        width: 80px;
-        height: 80px;
-
-        right: 20px;
-        bottom: 5px;
-    }
-
-    .cloud-1 {
-        top: 18%;
-        left: -180px;
-        animation-duration: 55s;
-    }
-
-    .cloud-2 {
-        top: 36%;
-        left: -220px;
-        opacity: 0.65;
-        animation-duration: 70s;
-        animation-delay: -20s;
-    }
-
-    .cloud-3 {
-        top: 58%;
-        left: -200px;
-        opacity: 0.4;
-        animation-duration: 80s;
-        animation-delay: -35s;
-    }
-
-    @keyframes cloudMove {
-        from {
-            transform: translateX(0);
-        }
-
-        to {
-            transform: translateX(calc(100vw + 450px));
-        }
-    }
-
-    /\* Stars \*/
-
-    .stars {
-        position: absolute;
-        inset: 0;
-    }
-
-    .star {
-        position: absolute;
-
-        width: 4px;
-        height: 4px;
-
-        background: #fde68a;
-
-        border-radius: 50%;
-
-        box-shadow:
-            0 0 8px rgba(253, 230, 138, 0.9);
-
-        animation: twinkle 2s ease-in-out infinite;
-    }
-
-    .star\:nth-child(1) {
-        top: 12%;
-        left: 12%;
-        animation-delay: 0s;
-    }
-
-    .star\:nth-child(2) {
-        top: 20%;
-        left: 32%;
-        animation-delay: 0.7s;
-    }
-
-    .star\:nth-child(3) {
-        top: 15%;
-        left: 58%;
-        animation-delay: 1.2s;
-    }
-
-    .star\:nth-child(4) {
-        top: 30%;
-        left: 75%;
-        animation-delay: 0.3s;
-    }
-
-    .star\:nth-child(5) {
-        top: 45%;
-        left: 20%;
-        animation-delay: 1.5s;
-    }
-
-    .star\:nth-child(6) {
-        top: 52%;
-        left: 45%;
-        animation-delay: 0.9s;
-    }
-
-    .star\:nth-child(7) {
-        top: 65%;
-        left: 72%;
-        animation-delay: 1.8s;
-    }
-
-    .star\:nth-child(8) {
-        top: 72%;
-        left: 30%;
-        animation-delay: 0.4s;
-    }
-
-    .star\:nth-child(9) {
-        top: 80%;
-        left: 85%;
-        animation-delay: 1.1s;
-    }
-
-    .star\:nth-child(10) {
-        top: 90%;
-        left: 12%;
-        animation-delay: 0.6s;
-    }
-
-    @keyframes twinkle {
-        0%,
-        100% {
-            opacity: 0.2;
-            transform: scale(0.7);
-        }
-
-        50% {
-            opacity: 1;
-            transform: scale(1.5);
-        }
-    }
-
-    /\* Floating lanterns \*/
-
-    .lantern {
-        position: absolute;
-
-        width: 25px;
-        height: 35px;
-
-        border: 2px solid rgba(250, 204, 21, 0.65);
-
-        border-radius: 7px;
-
-        background:
-            linear-gradient(
-                90deg,
-                rgba(250, 204, 21, 0.12),
-                rgba(255,255,255,0.22),
-                rgba(250, 204, 21, 0.12)
-            );
-
-        box-shadow:
-            0 0 18px rgba(250, 204, 21, 0.35);
-
-        animation: lanternFloat 4s ease-in-out infinite;
-    }
-
-    .lantern::before {
-        content: "";
-
-        position: absolute;
-
-        width: 8px;
-        height: 10px;
-
-        border: 2px solid rgba(250, 204, 21, 0.6);
-
-        border-bottom: none;
-
-        top: -11px;
-        left: 6px;
-
-        border-radius: 6px 6px 0 0;
-    }
-
-    .lantern-1 {
-        left: 5%;
-        top: 25%;
-        animation-delay: 0s;
-    }
-
-    .lantern-2 {
-        right: 6%;
-        top: 42%;
-        animation-delay: 1.2s;
-    }
-
-    .lantern-3 {
-        left: 10%;
-        bottom: 12%;
-        animation-delay: 2s;
-    }
-
-    @keyframes lanternFloat {
-        0%,
-        100% {
-            transform: translateY(0) rotate(-2deg);
-        }
-
-        50% {
-            transform: translateY(-16px) rotate(2deg);
-        }
-    }
-
-    /\* =========================================================
-       TOP BAR
-    \========================================================= \*/
-
-    \#top-bar {
-        display: flex;
-
-        position: fixed;
-
-        top: 0;
-        left: 0;
-
-        width: 100%;
-        height: 56px;
-
-        background:
-            linear-gradient(
-                90deg,
-                rgba(4, 17, 37, 0.97),
-                rgba(10, 42, 78, 0.94)
-            );
-
-        border-bottom:
-            1px solid rgba(250, 204, 21, 0.25);
-
-        backdrop-filter: blur(12px);
-
-        z-index: 1000;
-
-        align-items: center;
-        justify-content: space-between;
-
-        padding: 0 16px;
-
-        box-shadow:
-            0 4px 20px rgba(0, 0, 0, 0.25);
-    }
-
-    .brand {
-        display: flex;
-        align-items: center;
-        gap: 9px;
-    }
-
-    .brand-icon {
-        width: 36px;
-        height: 36px;
-
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        border-radius: 12px;
-
-        background:
-            linear-gradient(
-                135deg,
-                \#facc15,
-                \#f59e0b
-            );
-
-        color: #172554;
-
-        font-size: 20px;
-
-        box-shadow:
-            0 3px 12px rgba(250, 204, 21, 0.3);
-    }
-
-    .bar-title {
-        font-weight: 800;
-        font-size: 0.98rem;
-        color: #f8fafc;
-    }
-
-    .bar-subtitle {
-        font-size: 0.65rem;
-        color: #fde68a;
-        margin-top: 1px;
-    }
-
-    .top-actions {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-    }
-
-    /\* Music button \*/
-
-    .music-btn {
-        width: 38px;
-        height: 38px;
-
-        border: 1px solid rgba(250, 204, 21, 0.4);
-
-        border-radius: 50%;
-
-        background: rgba(255, 255, 255, 0.08);
-
-        color: #fde68a;
-
-        cursor: pointer;
-
-        font-size: 18px;
-
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        transition:
-            transform 0.2s ease,
-            background 0.2s ease;
-    }
-
-    .music-btn\:hover {
-        transform: scale(1.08);
-
-        background:
-            rgba(250, 204, 21, 0.16);
-    }
-
-    .music-btn.playing {
-        animation: musicPulse 1.4s ease-in-out infinite;
-    }
-
-    @keyframes musicPulse {
-        0%,
-        100% {
-            box-shadow:
-                0 0 0 rgba(250, 204, 21, 0);
-        }
-
-        50% {
-            box-shadow:
-                0 0 20px rgba(250, 204, 21, 0.5);
-        }
-    }
-
-    .logout-btn {
-        background:
-            linear-gradient(
-                135deg,
-                \#ef4444,
-                \#dc2626
-            );
-
-        color: #ffffff;
-
-        border: none;
-
-        padding: 8px 13px;
-
-        font-size: 0.78rem;
-        font-weight: 700;
-
-        border-radius: 9px;
-
-        cursor: pointer;
-
-        box-shadow:
-            0 3px 10px rgba(239, 68, 68, 0.2);
-
-        transition:
-            transform 0.2s ease;
-    }
-
-    .logout-btn\:active {
-        transform: scale(0.95);
-    }
-
-    /\* =========================================================
-       LAUNCH OVERLAY
-    \========================================================= \*/
-
-    \#launch-overlay {
-        position: fixed;
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0,
+maximum-scale=1.0, user-scalable=no"
+>
+
+<meta name="theme-color" content="#071b3a">
+
+<title>Misi Hafiz Muqaddam - Belajar & Hafaz Al-Quran Interaktif</title>
+
+<style>
+* {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+font-family:
+-apple-system,
+BlinkMacSystemFont,
+"Segoe UI",
+Roboto,
+Arial,
+sans-serif;
+}
+
+
+:root {
+    --navy: #071b3a;
+    --navy2: #0b2b55;
+    --blue: #123f70;
+    --gold: #facc15;
+    --gold2: #fde68a;
+    --green: #22c55e;
+    --white: #ffffff;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background:
+        radial-gradient(
+            circle at 50% 20%,
+            #174b78 0%,
+            #0b2b55 35%,
+            #071b3a 75%,
+            #030b18 100%
+        );
+}
+
+body {
+    position: relative;
+    color: #fff;
+}
+
+/* =========================================================
+   ISLAMIC BACKGROUND
+========================================================= */
+
+#kids-background {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* Islamic geometric pattern */
+
+#kids-background::before {
+    content: "";
+    position: absolute;
+    inset: -100px;
+
+    opacity: 0.11;
 
-        inset: 0;
+    background-image:
+        linear-gradient(30deg, #facc15 12%, transparent 12.5%, transparent 87%, #facc15 87.5%, #facc15),
+        linear-gradient(150deg, #facc15 12%, transparent 12.5%, transparent 87%, #facc15 87.5%, #facc15),
+        linear-gradient(30deg, #facc15 12%, transparent 12.5%, transparent 87%, #facc15 87.5%, #facc15),
+        linear-gradient(150deg, #facc15 12%, transparent 12.5%, transparent 87%, #facc15 87.5%, #facc15);
 
-        background:
-            radial-gradient(
-                circle at center,
-                rgba(17, 63, 105, 0.55),
-                rgba(3, 11, 24, 0.96)
-            );
+    background-position:
+        0 0,
+        0 0,
+        20px 35px,
+        20px 35px;
 
-        display: flex;
+    background-size: 80px 140px;
+    transform: rotate(0deg);
+}
 
-        align-items: center;
-        justify-content: center;
+/* Glow */
 
-        padding: 20px;
+.sky-glow {
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
 
-        z-index: 9999;
+    background:
+        radial-gradient(
+            circle,
+            rgba(250, 204, 21, 0.12),
+            transparent 68%
+        );
 
-        transition:
-            opacity 0.35s ease,
-            visibility 0.35s ease;
-    }
-
-    \#launch-overlay.hidden {
-        opacity: 0;
-        visibility: hidden;
-        pointer-events: none;
-    }
-
-    /\* Main card \*/
-
-    .card {
-        position: relative;
-
-        overflow: hidden;
-
-        background:
-            linear-gradient(
-                145deg,
-                rgba(255,255,255,0.14),
-                rgba(255,255,255,0.055)
-            );
+    top: -250px;
+    right: -100px;
 
-        backdrop-filter: blur(20px);
-
-        padding: 34px 25px 28px;
-
-        border-radius: 28px;
-
-        width: 100%;
-        max-width: 410px;
-
-        border:
-            1px solid rgba(255,255,255,0.17);
-
-        text-align: center;
-
-        box-shadow:
-            0 25px 70px rgba(0,0,0,0.45),
-            inset 0 1px 0 rgba(255,255,255,0.08);
-
-        animation:
-            cardAppear 0.7s cubic-bezier(.2,.8,.2,1);
-    }
+    animation: glowMove 8s ease-in-out infinite alternate;
+}
 
-    @keyframes cardAppear {
-        from {
-            opacity: 0;
-            transform:
-                translateY(35px)
-                scale(0.9);
-        }
-
-        to {
-            opacity: 1;
-            transform:
-                translateY(0)
-                scale(1);
-        }
+@keyframes glowMove {
+    from {
+        transform: translate(0, 0);
     }
 
-    .card-decoration {
-        position: absolute;
-
-        width: 150px;
-        height: 150px;
-
-        border-radius: 50%;
-
-        background:
-            radial-gradient(
-                circle,
-                rgba(250,204,21,0.18),
-                transparent 70%
-            );
-
-        top: -80px;
-        right: -60px;
+    to {
+        transform: translate(-100px, 80px);
     }
-
-    /\* Quran icon \*/
-
-    .quran-icon {
-        position: relative;
-
-        width: 88px;
-        height: 88px;
-
-        margin: 0 auto 16px;
+}
 
-        display: flex;
-        align-items: center;
-        justify-content: center;
+/* Moon */
 
-        font-size: 43px;
-
-        border-radius: 25px;
-
-        background:
-            linear-gradient(
-                145deg,
-                \#facc15,
-                \#f59e0b
-            );
-
-        color: #172554;
-
-        box-shadow:
-            0 10px 30px rgba(250,204,21,0.28);
-
-        animation:
-            iconFloat 3s ease-in-out infinite;
-    }
-
-    @keyframes iconFloat {
-        0%,
-        100% {
-            transform: translateY(0) rotate(-2deg);
-        }
-
-        50% {
-            transform: translateY(-8px) rotate(2deg);
-        }
-    }
+.moon {
+    position: absolute;
 
-    .title {
-        color: #ffffff;
+    top: 80px;
+    right: 8%;
 
-        font-size: clamp(1.5rem, 6vw, 2rem);
+    width: 85px;
+    height: 85px;
 
-        font-weight: 900;
+    border-radius: 50%;
 
-        margin-bottom: 7px;
+    background: #fde68a;
 
-        letter-spacing: -0.5px;
-    }
+    box-shadow:
+        0 0 25px rgba(253, 230, 138, 0.65),
+        0 0 70px rgba(253, 230, 138, 0.25);
 
-    .subtitle {
-        color: #fde68a;
+    animation:
+        moonFloat 5s ease-in-out infinite;
+}
 
-        font-size: 0.95rem;
+.moon::after {
+    content: "";
 
-        font-weight: 600;
+    position: absolute;
 
-        margin-bottom: 9px;
-    }
+    width: 78px;
+    height: 78px;
 
-    .welcome-text {
-        color: rgba(255,255,255,0.72);
+    border-radius: 50%;
 
-        font-size: 0.8rem;
+    background: #0b2b55;
 
-        line-height: 1.5;
+    top: -10px;
+    left: 22px;
+}
 
-        margin-bottom: 23px;
+@keyframes moonFloat {
+    0%,
+    100% {
+        transform: translateY(0);
     }
-
-    /\* Start button \*/
-
-    .launch-btn {
-        position: relative;
-
-        overflow: hidden;
-
-        width: 100%;
-
-        padding: 16px;
-
-        background:
-            linear-gradient(
-                135deg,
-                \#22c55e,
-                \#16a34a
-            );
-
-        color: #ffffff;
-
-        border: none;
-
-        border-radius: 14px;
-
-        font-size: 1rem;
-
-        font-weight: 800;
-
-        cursor: pointer;
-
-        box-shadow:
-            0 8px 22px rgba(34,197,94,0.3);
 
-        transition:
-            transform 0.2s ease,
-            box-shadow 0.2s ease;
+    50% {
+        transform: translateY(-10px);
     }
+}
 
-    .launch-btn::before {
-        content: "";
+/* Clouds */
 
-        position: absolute;
+.cloud {
+    position: absolute;
 
-        top: 0;
-        left: -120%;
+    width: 150px;
+    height: 45px;
 
-        width: 70%;
-        height: 100%;
+    background: rgba(255, 255, 255, 0.12);
 
-        background:
-            linear-gradient(
-                90deg,
-                transparent,
-                rgba(255,255,255,0.3),
-                transparent
-            );
+    border-radius: 50px;
 
-        transform: skewX(-20deg);
+    filter: blur(1px);
 
-        animation:
-            buttonShine 3s infinite;
-    }
-
-    @keyframes buttonShine {
-        0% {
-            left: -120%;
-        }
-
-        45%,
-        100% {
-            left: 140%;
-        }
-    }
-
-    .launch-btn\:hover {
-        transform: translateY(-2px);
-
-        box-shadow:
-            0 12px 28px rgba(34,197,94,0.38);
-    }
-
-    .launch-btn\:active {
-        transform: scale(0.97);
-    }
+    animation: cloudMove linear infinite;
+}
 
-    /\* Mini features \*/
+.cloud::before,
+.cloud::after {
+    content: "";
 
-    .features {
-        display: flex;
+    position: absolute;
 
-        justify-content: center;
+    background: inherit;
 
-        gap: 10px;
+    border-radius: 50%;
+}
 
-        margin-top: 17px;
-    }
+.cloud::before {
+    width: 65px;
+    height: 65px;
 
-    .feature {
-        flex: 1;
+    left: 25px;
+    bottom: 10px;
+}
 
-        padding: 9px 5px;
+.cloud::after {
+    width: 80px;
+    height: 80px;
 
-        border-radius: 12px;
+    right: 20px;
+    bottom: 5px;
+}
 
-        background:
-            rgba(255,255,255,0.055);
+.cloud-1 {
+    top: 18%;
+    left: -180px;
+    animation-duration: 55s;
+}
 
-        border:
-            1px solid rgba(255,255,255,0.08);
+.cloud-2 {
+    top: 36%;
+    left: -220px;
+    opacity: 0.65;
+    animation-duration: 70s;
+    animation-delay: -20s;
+}
 
-        color: rgba(255,255,255,0.72);
+.cloud-3 {
+    top: 58%;
+    left: -200px;
+    opacity: 0.4;
+    animation-duration: 80s;
+    animation-delay: -35s;
+}
 
-        font-size: 0.67rem;
+@keyframes cloudMove {
+    from {
+        transform: translateX(0);
     }
-
-    .feature-icon {
-        display: block;
 
-        font-size: 19px;
-
-        margin-bottom: 3px;
+    to {
+        transform: translateX(calc(100vw + 450px));
     }
-
-    /\* =========================================================
-       APP IFRAME
-    \========================================================= \*/
+}
 
-    \#app-frame {
-        position: fixed;
+/* Stars */
 
-        top: 56px;
-        left: 0;
+.stars {
+    position: absolute;
+    inset: 0;
+}
 
-        width: 100vw;
+.star {
+    position: absolute;
 
-        height: calc(100dvh - 56px);
+    width: 4px;
+    height: 4px;
 
-        border: none;
-
-        display: none;
-
-        z-index: 10;
-
-        background: transparent;
-    }
+    background: #fde68a;
 
-    /\* =========================================================
-       MUSIC PANEL
-    \========================================================= \*/
+    border-radius: 50%;
 
-    \#music-panel {
-        position: fixed;
+    box-shadow:
+        0 0 8px rgba(253, 230, 138, 0.9);
 
-        top: 66px;
-        right: 12px;
+    animation: twinkle 2s ease-in-out infinite;
+}
 
-        width: 245px;
+.star:nth-child(1) {
+    top: 12%;
+    left: 12%;
+    animation-delay: 0s;
+}
 
-        padding: 14px;
+.star:nth-child(2) {
+    top: 20%;
+    left: 32%;
+    animation-delay: 0.7s;
+}
 
-        border-radius: 16px;
+.star:nth-child(3) {
+    top: 15%;
+    left: 58%;
+    animation-delay: 1.2s;
+}
 
-        background:
-            rgba(7, 27, 58, 0.96);
+.star:nth-child(4) {
+    top: 30%;
+    left: 75%;
+    animation-delay: 0.3s;
+}
 
-        border:
-            1px solid rgba(250,204,21,0.25);
+.star:nth-child(5) {
+    top: 45%;
+    left: 20%;
+    animation-delay: 1.5s;
+}
 
-        box-shadow:
-            0 15px 40px rgba(0,0,0,0.35);
+.star:nth-child(6) {
+    top: 52%;
+    left: 45%;
+    animation-delay: 0.9s;
+}
 
-        backdrop-filter: blur(15px);
+.star:nth-child(7) {
+    top: 65%;
+    left: 72%;
+    animation-delay: 1.8s;
+}
 
-        z-index: 2000;
+.star:nth-child(8) {
+    top: 72%;
+    left: 30%;
+    animation-delay: 0.4s;
+}
 
-        opacity: 0;
-        visibility: hidden;
+.star:nth-child(9) {
+    top: 80%;
+    left: 85%;
+    animation-delay: 1.1s;
+}
 
-        transform:
-            translateY(-8px)
-            scale(0.96);
+.star:nth-child(10) {
+    top: 90%;
+    left: 12%;
+    animation-delay: 0.6s;
+}
 
-        transition:
-            all 0.2s ease;
+@keyframes twinkle {
+    0%,
+    100% {
+        opacity: 0.2;
+        transform: scale(0.7);
     }
 
-    \#music-panel.visible {
+    50% {
         opacity: 1;
-        visibility: visible;
+        transform: scale(1.5);
+    }
+}
 
+/* Floating lanterns */
+
+.lantern {
+    position: absolute;
+
+    width: 25px;
+    height: 35px;
+
+    border: 2px solid rgba(250, 204, 21, 0.65);
+
+    border-radius: 7px;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(250, 204, 21, 0.12),
+            rgba(255,255,255,0.22),
+            rgba(250, 204, 21, 0.12)
+        );
+
+    box-shadow:
+        0 0 18px rgba(250, 204, 21, 0.35);
+
+    animation: lanternFloat 4s ease-in-out infinite;
+}
+
+.lantern::before {
+    content: "";
+
+    position: absolute;
+
+    width: 8px;
+    height: 10px;
+
+    border: 2px solid rgba(250, 204, 21, 0.6);
+
+    border-bottom: none;
+
+    top: -11px;
+    left: 6px;
+
+    border-radius: 6px 6px 0 0;
+}
+
+.lantern-1 {
+    left: 5%;
+    top: 25%;
+    animation-delay: 0s;
+}
+
+.lantern-2 {
+    right: 6%;
+    top: 42%;
+    animation-delay: 1.2s;
+}
+
+.lantern-3 {
+    left: 10%;
+    bottom: 12%;
+    animation-delay: 2s;
+}
+
+@keyframes lanternFloat {
+    0%,
+    100% {
+        transform: translateY(0) rotate(-2deg);
+    }
+
+    50% {
+        transform: translateY(-16px) rotate(2deg);
+    }
+}
+
+/* =========================================================
+   TOP BAR
+========================================================= */
+
+#top-bar {
+    display: flex;
+
+    position: fixed;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 56px;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(4, 17, 37, 0.97),
+            rgba(10, 42, 78, 0.94)
+        );
+
+    border-bottom:
+        1px solid rgba(250, 204, 21, 0.25);
+
+    backdrop-filter: blur(12px);
+
+    z-index: 1000;
+
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 16px;
+
+    box-shadow:
+        0 4px 20px rgba(0, 0, 0, 0.25);
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+}
+
+.brand-icon {
+    width: 36px;
+    height: 36px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 12px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #facc15,
+            #f59e0b
+        );
+
+    color: #172554;
+
+    font-size: 20px;
+
+    box-shadow:
+        0 3px 12px rgba(250, 204, 21, 0.3);
+}
+
+.bar-title {
+    font-weight: 800;
+    font-size: 0.98rem;
+    color: #f8fafc;
+}
+
+.bar-subtitle {
+    font-size: 0.65rem;
+    color: #fde68a;
+    margin-top: 1px;
+}
+
+.top-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Music button */
+
+.music-btn {
+    width: 38px;
+    height: 38px;
+
+    border: 1px solid rgba(250, 204, 21, 0.4);
+
+    border-radius: 50%;
+
+    background: rgba(255, 255, 255, 0.08);
+
+    color: #fde68a;
+
+    cursor: pointer;
+
+    font-size: 18px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    transition:
+        transform 0.2s ease,
+        background 0.2s ease;
+}
+
+.music-btn:hover {
+    transform: scale(1.08);
+
+    background:
+        rgba(250, 204, 21, 0.16);
+}
+
+.music-btn.playing {
+    animation: musicPulse 1.4s ease-in-out infinite;
+}
+
+@keyframes musicPulse {
+    0%,
+    100% {
+        box-shadow:
+            0 0 0 rgba(250, 204, 21, 0);
+    }
+
+    50% {
+        box-shadow:
+            0 0 20px rgba(250, 204, 21, 0.5);
+    }
+}
+
+.logout-btn {
+    background:
+        linear-gradient(
+            135deg,
+            #ef4444,
+            #dc2626
+        );
+
+    color: #ffffff;
+
+    border: none;
+
+    padding: 8px 13px;
+
+    font-size: 0.78rem;
+    font-weight: 700;
+
+    border-radius: 9px;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 3px 10px rgba(239, 68, 68, 0.2);
+
+    transition:
+        transform 0.2s ease;
+}
+
+.logout-btn:active {
+    transform: scale(0.95);
+}
+
+/* =========================================================
+   LAUNCH OVERLAY
+========================================================= */
+
+#launch-overlay {
+    position: fixed;
+
+    inset: 0;
+
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(17, 63, 105, 0.55),
+            rgba(3, 11, 24, 0.96)
+        );
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+
+    z-index: 9999;
+
+    transition:
+        opacity 0.35s ease,
+        visibility 0.35s ease;
+}
+
+#launch-overlay.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+/* Main card */
+
+.card {
+    position: relative;
+
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,0.14),
+            rgba(255,255,255,0.055)
+        );
+
+    backdrop-filter: blur(20px);
+
+    padding: 34px 25px 28px;
+
+    border-radius: 28px;
+
+    width: 100%;
+    max-width: 410px;
+
+    border:
+        1px solid rgba(255,255,255,0.17);
+
+    text-align: center;
+
+    box-shadow:
+        0 25px 70px rgba(0,0,0,0.45),
+        inset 0 1px 0 rgba(255,255,255,0.08);
+
+    animation:
+        cardAppear 0.7s cubic-bezier(.2,.8,.2,1);
+}
+
+@keyframes cardAppear {
+    from {
+        opacity: 0;
+        transform:
+            translateY(35px)
+            scale(0.9);
+    }
+
+    to {
+        opacity: 1;
         transform:
             translateY(0)
             scale(1);
     }
+}
 
-    .music-title {
-        color: #fde68a;
+.card-decoration {
+    position: absolute;
 
-        font-size: 0.8rem;
+    width: 150px;
+    height: 150px;
 
-        font-weight: 800;
+    border-radius: 50%;
 
-        margin-bottom: 10px;
+    background:
+        radial-gradient(
+            circle,
+            rgba(250,204,21,0.18),
+            transparent 70%
+        );
+
+    top: -80px;
+    right: -60px;
+}
+
+/* Quran icon */
+
+.quran-icon {
+    position: relative;
+
+    width: 88px;
+    height: 88px;
+
+    margin: 0 auto 16px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 43px;
+
+    border-radius: 25px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #facc15,
+            #f59e0b
+        );
+
+    color: #172554;
+
+    box-shadow:
+        0 10px 30px rgba(250,204,21,0.28);
+
+    animation:
+        iconFloat 3s ease-in-out infinite;
+}
+
+@keyframes iconFloat {
+    0%,
+    100% {
+        transform: translateY(0) rotate(-2deg);
     }
 
-    .volume-row {
-        display: flex;
+    50% {
+        transform: translateY(-8px) rotate(2deg);
+    }
+}
 
-        align-items: center;
+.title {
+    color: #ffffff;
 
-        gap: 8px;
+    font-size: clamp(1.5rem, 6vw, 2rem);
+
+    font-weight: 900;
+
+    margin-bottom: 7px;
+
+    letter-spacing: -0.5px;
+}
+
+.subtitle {
+    color: #fde68a;
+
+    font-size: 0.95rem;
+
+    font-weight: 600;
+
+    margin-bottom: 9px;
+}
+
+.welcome-text {
+    color: rgba(255,255,255,0.72);
+
+    font-size: 0.8rem;
+
+    line-height: 1.5;
+
+    margin-bottom: 23px;
+}
+
+/* Start button */
+
+.launch-btn {
+    position: relative;
+
+    overflow: hidden;
+
+    width: 100%;
+
+    padding: 16px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #22c55e,
+            #16a34a
+        );
+
+    color: #ffffff;
+
+    border: none;
+
+    border-radius: 14px;
+
+    font-size: 1rem;
+
+    font-weight: 800;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 8px 22px rgba(34,197,94,0.3);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.launch-btn::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: -120%;
+
+    width: 70%;
+    height: 100%;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255,255,255,0.3),
+            transparent
+        );
+
+    transform: skewX(-20deg);
+
+    animation:
+        buttonShine 3s infinite;
+}
+
+@keyframes buttonShine {
+    0% {
+        left: -120%;
     }
 
-    \#volume-control {
-        width: 100%;
-        accent-color: #facc15;
+    45%,
+    100% {
+        left: 140%;
+    }
+}
+
+.launch-btn:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 12px 28px rgba(34,197,94,0.38);
+}
+
+.launch-btn:active {
+    transform: scale(0.97);
+}
+
+/* Mini features */
+
+.features {
+    display: flex;
+
+    justify-content: center;
+
+    gap: 10px;
+
+    margin-top: 17px;
+}
+
+.feature {
+    flex: 1;
+
+    padding: 9px 5px;
+
+    border-radius: 12px;
+
+    background:
+        rgba(255,255,255,0.055);
+
+    border:
+        1px solid rgba(255,255,255,0.08);
+
+    color: rgba(255,255,255,0.72);
+
+    font-size: 0.67rem;
+}
+
+.feature-icon {
+    display: block;
+
+    font-size: 19px;
+
+    margin-bottom: 3px;
+}
+
+/* =========================================================
+   APP IFRAME
+========================================================= */
+
+#app-frame {
+    position: fixed;
+
+    top: 56px;
+    left: 0;
+
+    width: 100vw;
+
+    height: calc(100dvh - 56px);
+
+    border: none;
+
+    display: none;
+
+    z-index: 10;
+
+    background: transparent;
+}
+
+/* =========================================================
+   MUSIC PANEL
+========================================================= */
+
+#music-panel {
+    position: fixed;
+
+    top: 66px;
+    right: 12px;
+
+    width: 245px;
+
+    padding: 14px;
+
+    border-radius: 16px;
+
+    background:
+        rgba(7, 27, 58, 0.96);
+
+    border:
+        1px solid rgba(250,204,21,0.25);
+
+    box-shadow:
+        0 15px 40px rgba(0,0,0,0.35);
+
+    backdrop-filter: blur(15px);
+
+    z-index: 2000;
+
+    opacity: 0;
+    visibility: hidden;
+
+    transform:
+        translateY(-8px)
+        scale(0.96);
+
+    transition:
+        all 0.2s ease;
+}
+
+#music-panel.visible {
+    opacity: 1;
+    visibility: visible;
+
+    transform:
+        translateY(0)
+        scale(1);
+}
+
+.music-title {
+    color: #fde68a;
+
+    font-size: 0.8rem;
+
+    font-weight: 800;
+
+    margin-bottom: 10px;
+}
+
+.volume-row {
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+}
+
+#volume-control {
+    width: 100%;
+    accent-color: #facc15;
+}
+
+.music-status {
+    margin-top: 8px;
+
+    color: rgba(255,255,255,0.65);
+
+    font-size: 0.68rem;
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 600px) {
+    #top-bar {
+        height: 52px;
+        padding: 0 11px;
     }
 
-    .music-status {
-        margin-top: 8px;
-
-        color: rgba(255,255,255,0.65);
-
-        font-size: 0.68rem;
+    .brand-icon {
+        width: 33px;
+        height: 33px;
+        font-size: 18px;
     }
 
-    /\* =========================================================
-       RESPONSIVE
-    \========================================================= \*/
-
-    @media (max-width: 600px) {
-        \#top-bar {
-            height: 52px;
-            padding: 0 11px;
-        }
-
-        .brand-icon {
-            width: 33px;
-            height: 33px;
-            font-size: 18px;
-        }
-
-        .bar-title {
-            font-size: 0.86rem;
-        }
-
-        .bar-subtitle {
-            font-size: 0.58rem;
-        }
-
-        .logout-btn {
-            padding: 7px 10px;
-            font-size: 0.72rem;
-        }
-
-        \#app-frame {
-            top: 52px;
-            height: calc(100dvh - 52px);
-        }
-
-        .moon {
-            width: 62px;
-            height: 62px;
-
-            top: 75px;
-            right: 7%;
-        }
-
-        .moon::after {
-            width: 58px;
-            height: 58px;
-            left: 17px;
-            top: -8px;
-        }
-
-        .card {
-            padding: 28px 20px 22px;
-            border-radius: 24px;
-        }
-
-        .quran-icon {
-            width: 74px;
-            height: 74px;
-            font-size: 36px;
-        }
-
-        .title {
-            font-size: 1.55rem;
-        }
-
-        .subtitle {
-            font-size: 0.86rem;
-        }
-
-        .welcome-text {
-            font-size: 0.76rem;
-        }
-
-        .feature {
-            font-size: 0.61rem;
-        }
+    .bar-title {
+        font-size: 0.86rem;
     }
 
-    /\* Reduce animation for accessibility \*/
-
-    @media (prefers-reduced-motion: reduce) {
-        \*,
-        \*::before,
-        \*::after {
-            animation-duration: 0.01ms !important;
-            animation-iteration-count: 1 !important;
-            transition-duration: 0.01ms !important;
-        }
+    .bar-subtitle {
+        font-size: 0.58rem;
     }
-\</style>
+
+    .logout-btn {
+        padding: 7px 10px;
+        font-size: 0.72rem;
+    }
+
+    #app-frame {
+        top: 52px;
+        height: calc(100dvh - 52px);
+    }
+
+    .moon {
+        width: 62px;
+        height: 62px;
+
+        top: 75px;
+        right: 7%;
+    }
+
+    .moon::after {
+        width: 58px;
+        height: 58px;
+        left: 17px;
+        top: -8px;
+    }
+
+    .card {
+        padding: 28px 20px 22px;
+        border-radius: 24px;
+    }
+
+    .quran-icon {
+        width: 74px;
+        height: 74px;
+        font-size: 36px;
+    }
+
+    .title {
+        font-size: 1.55rem;
+    }
+
+    .subtitle {
+        font-size: 0.86rem;
+    }
+
+    .welcome-text {
+        font-size: 0.76rem;
+    }
+
+    .feature {
+        font-size: 0.61rem;
+    }
+}
+
+/* Reduce animation for accessibility */
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+
+</style>
 
 </head>
 
 <body>
 
-\<!-- =========================================================
-     INTERACTIVE ISLAMIC BACKGROUND
-\========================================================== -->
+<!-- =========================================================
+INTERACTIVE ISLAMIC BACKGROUND
+========================================================== -->
 
-\<div id="kids-background">
+<div id="kids-background">
 
-    \<div class="sky-glow">\</div>
 
-    \<div class="moon">\</div>
+<div class="sky-glow"></div>
 
-    \<div class="cloud cloud-1">\</div>
-    \<div class="cloud cloud-2">\</div>
-    \<div class="cloud cloud-3">\</div>
+<div class="moon"></div>
 
-    \<div class="lantern lantern-1">\</div>
-    \<div class="lantern lantern-2">\</div>
-    \<div class="lantern lantern-3">\</div>
+<div class="cloud cloud-1"></div>
+<div class="cloud cloud-2"></div>
+<div class="cloud cloud-3"></div>
 
-    \<div class="stars">
-        \<span class="star">\</span>
-        \<span class="star">\</span>
-        \<span class="star">\</span>
-        \<span class="star">\</span>
-        \<span class="star">\</span>
-        \<span class="star">\</span>
-        \<span class="star">\</span>
-        \<span class="star">\</span>
-        \<span class="star">\</span>
-        \<span class="star">\</span>
-    \</div>
+<div class="lantern lantern-1"></div>
+<div class="lantern lantern-2"></div>
+<div class="lantern lantern-3"></div>
 
-\</div>
+<div class="stars">
+    <span class="star"></span>
+    <span class="star"></span>
+    <span class="star"></span>
+    <span class="star"></span>
+    <span class="star"></span>
+    <span class="star"></span>
+    <span class="star"></span>
+    <span class="star"></span>
+    <span class="star"></span>
+    <span class="star"></span>
+</div>
 
 
+</div>
 
-\<!-- =========================================================
-     TOP NAVIGATION
-\========================================================== -->
 
-\<div id="top-bar">
 
-    \<div class="brand">
+<!-- =========================================================
+TOP NAVIGATION
+========================================================== -->
 
-        \<div class="brand-icon">
-            📖
-        \</div>
+<div id="top-bar">
 
-        \<div>
-            \<div class="bar-title">
-                Misi Hafiz Muqaddam
-            \</div>
 
-            \<div class="bar-subtitle">
-                Belajar • Hafaz • Hebat
-            \</div>
-        \</div>
+<div class="brand">
 
-    \</div>
+    <div class="brand-icon">
+        📖
+    </div>
 
-    \<div class="top-actions">
+    <div>
+        <div class="bar-title">
+            Misi Hafiz Muqaddam
+        </div>
 
-        \<button
-            id="music-btn"
-            class="music-btn"
-            onclick="toggleMusicPanel()"
-            aria-label="Muzik"
-            title="Muzik"
-        \>
-            🎵
-        \</button>
+        <div class="bar-subtitle">
+            Belajar • Hafaz • Hebat
+        </div>
+    </div>
 
-        \<button
-            class="logout-btn"
-            onclick="handleLogout()"
-        \>
-            Keluar
-        \</button>
+</div>
 
-    \</div>
+<div class="top-actions">
 
-\</div>
+    <button
+        id="music-btn"
+        class="music-btn"
+        onclick="toggleMusicPanel()"
+        aria-label="Muzik"
+        title="Muzik"
+    >
+        🎵
+    </button>
 
+    <button
+        class="logout-btn"
+        onclick="handleLogout()"
+    >
+        Keluar
+    </button>
 
+</div>
 
-\<!-- =========================================================
-     MUSIC PANEL
-\========================================================== -->
 
-\<div id="music-panel">
+</div>
 
-    \<div class="music-title">
-        🎵 Muzik Misi Hafiz
-    \</div>
 
-    \<div class="volume-row">
 
-        \<button
-            id="music-toggle"
-            class="music-btn"
-            onclick="toggleMusic()"
-            style="flex\:none;"
-        \>
-            ▶️
-        \</button>
+<!-- =========================================================
+MUSIC PANEL
+========================================================== -->
 
-        \<input
-            id="volume-control"
-            type="range"
-            min="0"
-            max="1"
-            step="0.05"
-            value="0.35"
-            oninput="changeVolume(this.value)"
-        \>
+<div id="music-panel">
 
-    \</div>
 
-    \<div
-        id="music-status"
-        class="music-status"
-    \>
-        Tekan ▶️ untuk memainkan muzik.
-    \</div>
+<div class="music-title">
+    🎵 Muzik Misi Hafiz
+</div>
 
-\</div>
+<div class="volume-row">
 
+    <button
+        id="music-toggle"
+        class="music-btn"
+        onclick="toggleMusic()"
+        style="flex:none;"
+    >
+        ▶️
+    </button>
 
+    <input
+        id="volume-control"
+        type="range"
+        min="0"
+        max="1"
+        step="0.05"
+        value="0.35"
+        oninput="changeVolume(this.value)"
+    >
 
-\<!-- =========================================================
-     START SCREEN
-\========================================================== -->
+</div>
 
-\<div id="launch-overlay">
+<div
+    id="music-status"
+    class="music-status"
+>
+    Tekan ▶️ untuk memainkan muzik.
+</div>
 
-    \<div class="card">
 
-        \<div class="card-decoration">\</div>
+</div>
 
-        \<div class="quran-icon">
-            📖
-        \</div>
 
-        \<div class="title">
-            Misi Hafiz
-        \</div>
 
-        \<div class="subtitle">
-            🌙 Assalamualaikum, Pejuang Hafazan!
-        \</div>
+<!-- =========================================================
+START SCREEN
+========================================================== -->
 
-        \<div class="welcome-text">
-            Mari mulakan perjalanan hafazan Al-Quran
-            dengan cara yang menyeronokkan,
-            interaktif dan penuh semangat.
-        \</div>
+<div id="launch-overlay">
 
-        \<button
-            class="launch-btn"
-            onclick="launchApp()"
-        \>
-            🚀 Mulakan Misi Sekarang
-        \</button>
 
-        \<div class="features">
+<div class="card">
 
-            \<div class="feature">
-                \<span class="feature-icon">📖\</span>
-                Hafazan
-            \</div>
+    <div class="card-decoration"></div>
 
-            \<div class="feature">
-                \<span class="feature-icon">⭐\</span>
-                Ganjaran
-            \</div>
+    <div class="quran-icon">
+        📖
+    </div>
 
-            \<div class="feature">
-                \<span class="feature-icon">🏆\</span>
-                Cabaran
-            \</div>
+    <div class="title">
+        Misi Hafiz
+    </div>
 
-        \</div>
+    <div class="subtitle">
+        🌙 Assalamualaikum, Pejuang Hafazan!
+    </div>
 
-    \</div>
+    <div class="welcome-text">
+        Mari mulakan perjalanan hafazan Al-Quran
+        dengan cara yang menyeronokkan,
+        interaktif dan penuh semangat.
+    </div>
 
-\</div>
+    <button
+        class="launch-btn"
+        onclick="launchApp()"
+    >
+        🚀 Mulakan Misi Sekarang
+    </button>
 
+    <div class="features">
 
+        <div class="feature">
+            <span class="feature-icon">📖</span>
+            Hafazan
+        </div>
 
-\<!-- =========================================================
-     GOOGLE APPS SCRIPT APP
-\========================================================== -->
+        <div class="feature">
+            <span class="feature-icon">⭐</span>
+            Ganjaran
+        </div>
 
-\<iframe
-    id="app-frame"
-    src="[https://script.google.com/macros/s/AKfycbyWTn1EyzTd7aMrS662_PGOTH1EWpI2h1EaXd2K240mh8VITt4FB3sfNn4cQ9CnJdLF/exec](https://script.google.com/macros/s/AKfycbyWTn1EyzTd7aMrS662_PGOTH1EWpI2h1EaXd2K240mh8VITt4FB3sfNn4cQ9CnJdLF/exec)"
-    allow="fullscreen; autoplay"
-    loading="eager"
-    referrerpolicy="no-referrer-when-downgrade"
-\>
-\</iframe>
+        <div class="feature">
+            <span class="feature-icon">🏆</span>
+            Cabaran
+        </div>
 
+    </div>
 
+</div>
 
-\<!-- =========================================================
-     AUDIO
-\========================================================== -->
 
-\<audio
-    id="background-music"
-    preload="auto"
-    loop
-    playsinline
-\>
-    \<!--
-        GANTIKAN URL DI BAWAH DENGAN FAIL MUZIK
-        YANG ANDA BENAR-BENAR MEMPUNYAI HAK UNTUK GUNAKAN.
+</div>
 
-        Contoh:
-        [https://domain-anda.com/islamic-kids-music.mp3](https://domain-anda.com/islamic-kids-music.mp3)
-    \-->
 
-    \<source
-        src="https://aizudabdghafar.github.io/audio/Langkah_Menuju_Jannah.mp3"
-        type="audio/mpeg"
-    \>
-\</audio>
 
+<!-- =========================================================
+GOOGLE APPS SCRIPT APP
+========================================================== -->
 
+<iframe
+id="app-frame"
+src="https://script.google.com/macros/s/AKfycbyWTn1EyzTd7aMrS662_PGOTH1EWpI2h1EaXd2K240mh8VITt4FB3sfNn4cQ9CnJdLF/exec"
+allow="fullscreen; autoplay"
+loading="eager"
+referrerpolicy="no-referrer-when-downgrade"
+>
+</iframe>
 
-\<script>
 
-    /\* =====================================================
-       CONFIGURATION
-    \====================================================== \*/
 
-    const APP_URL =
-        "[https://script.google.com/macros/s/AKfycbyWTn1EyzTd7aMrS662_PGOTH1EWpI2h1EaXd2K240mh8VITt4FB3sfNn4cQ9CnJdLF/exec](https://script.google.com/macros/s/AKfycbyWTn1EyzTd7aMrS662_PGOTH1EWpI2h1EaXd2K240mh8VITt4FB3sfNn4cQ9CnJdLF/exec)";
+<!-- =========================================================
+AUDIO
+========================================================== -->
 
+<audio
+id="background-music"
+preload="auto"
+loop
+playsinline
+>
+<!--
+GANTIKAN URL DI BAWAH DENGAN FAIL MUZIK
+YANG ANDA BENAR-BENAR MEMPUNYAI HAK UNTUK GUNAKAN.
 
 
-    /\* =====================================================
-       ELEMENTS
-    \====================================================== \*/
+    Contoh:
+    https://domain-anda.com/islamic-kids-music.mp3
+-->
 
-    const overlay =
-        document.getElementById("launch-overlay");
+<source
+    src="https://aizudabdghafar.github.io/audio/Langkah_Menuju_Jannah.mp3"
+    type="audio/mpeg"
+>
 
-    const iframe =
-        document.getElementById("app-frame");
 
-    const music =
-        document.getElementById("background-music");
+</audio>
 
-    const musicButton =
-        document.getElementById("music-btn");
 
-    const musicToggle =
-        document.getElementById("music-toggle");
 
-    const musicPanel =
-        document.getElementById("music-panel");
+<script>
 
-    const musicStatus =
-        document.getElementById("music-status");
 
+/* =====================================================
+   CONFIGURATION
+====================================================== */
 
+const APP_URL = "https://script.google.com/macros/s/AKfycbyWTn1EyzTd7aMrS662_PGOTH1EWpI2h1EaXd2K240mh8VITt4FB3sfNn4cQ9CnJdLF/exec";
 
-    /\* =====================================================
-       MUSIC
-    \====================================================== \*/
 
-    let musicPlaying = false;
 
 
 
-    function toggleMusicPanel() {
+/* =====================================================
+   ELEMENTS
+====================================================== */
 
-        musicPanel.classList.toggle("visible");
+const overlay =
+    document.getElementById("launch-overlay");
 
+const iframe =
+    document.getElementById("app-frame");
+
+const music =
+    document.getElementById("background-music");
+
+const musicButton =
+    document.getElementById("music-btn");
+
+const musicToggle =
+    document.getElementById("music-toggle");
+
+const musicPanel =
+    document.getElementById("music-panel");
+
+const musicStatus =
+    document.getElementById("music-status");
+
+
+
+
+
+/* =====================================================
+   MUSIC
+====================================================== */
+
+let musicPlaying = false;
+
+
+
+
+
+function toggleMusicPanel() {
+
+    musicPanel.classList.toggle("visible");
+
+}
+
+
+
+
+
+async function toggleMusic() {
+
+    if (!music) {
+        return;
     }
 
+    try {
 
-
-    async function toggleMusic() {
-
-        if (!music) {
-            return;
-        }
-
-        try {
-
-            if (music.paused) {
-
-                await music.play();
-
-                musicPlaying = true;
-
-                updateMusicUI();
-
-            } else {
-
-                music.pause();
-
-                musicPlaying = false;
-
-                updateMusicUI();
-
-            }
-
-        } catch (error) {
-
-            console.log(
-                "Audio tidak dapat dimainkan:",
-                error
-            );
-
-            musicStatus.textContent =
-                "Muzik belum tersedia atau fail audio tidak ditemui.";
-
-            musicPlaying = false;
-
-            updateMusicUI();
-
-        }
-
-    }
-
-
-
-    function changeVolume(value) {
-
-        if (!music) {
-            return;
-        }
-
-        music.volume =
-            Math.max(
-                0,
-                Math.min(
-                    1,
-                    Number(value)
-                )
-            );
-
-    }
-
-
-
-    function updateMusicUI() {
-
-        if (musicPlaying) {
-
-            musicToggle.textContent = "⏸️";
-
-            musicButton.classList.add("playing");
-
-            musicStatus.textContent =
-                "Muzik sedang dimainkan 🎵";
-
-        } else {
-
-            musicToggle.textContent = "▶️";
-
-            musicButton.classList.remove("playing");
-
-            musicStatus.textContent =
-                "Tekan ▶️ untuk memainkan muzik.";
-
-        }
-
-    }
-
-
-
-    /\* Default volume \*/
-
-    music.volume = 0.35;
-
-
-
-    /\* =====================================================
-       LAUNCH APPLICATION
-    \====================================================== \*/
-
-    async function launchApp() {
-
-        /\*
-         \* Hide launch screen immediately.
-         \* This avoids perceived delay.
-         \*/
-
-        overlay.classList.add("hidden");
-
-        iframe.style.display = "block";
-
-
-
-        /\*
-         \* Fullscreen must be triggered by a user gesture.
-         \*/
-
-        try {
-
-            const element =
-                document.documentElement;
-
-            if (
-                !document.fullscreenElement &&
-                element.requestFullscreen
-            ) {
-
-                await element.requestFullscreen();
-
-            } else if (
-                !document.webkitFullscreenElement &&
-                element.webkitRequestFullscreen
-            ) {
-
-                element.webkitRequestFullscreen();
-
-            }
-
-        } catch (error) {
-
-            console.log(
-                "Fullscreen tidak tersedia:",
-                error
-            );
-
-        }
-
-
-
-        /\*
-         \* Optional music start.
-         \*
-         \* Browser may allow this because
-         \* launchApp() is called directly by
-         \* the user's button click.
-         \*/
-
-        try {
+        if (music.paused) {
 
             await music.play();
 
@@ -1543,12 +1415,9 @@
 
             updateMusicUI();
 
-        } catch (error) {
+        } else {
 
-            /\*
-             \* Jangan ganggu aplikasi jika browser
-             \* menyekat autoplay.
-             \*/
+            music.pause();
 
             musicPlaying = false;
 
@@ -1556,188 +1425,389 @@
 
         }
 
+    } catch (error) {
+
+        console.log(
+            "Audio tidak dapat dimainkan:",
+            error
+        );
+
+        musicStatus.textContent =
+            "Muzik belum tersedia atau fail audio tidak ditemui.";
+
+        musicPlaying = false;
+
+        updateMusicUI();
+
     }
 
+}
 
 
-    /\* =====================================================
-       IFRAME DRAWER
-    \====================================================== \*/
 
-    function toggleIframeDrawer() {
+
+
+function changeVolume(value) {
+
+    if (!music) {
+        return;
+    }
+
+    music.volume =
+        Math.max(
+            0,
+            Math.min(
+                1,
+                Number(value)
+            )
+        );
+
+}
+
+
+
+
+
+function updateMusicUI() {
+
+    if (musicPlaying) {
+
+        musicToggle.textContent = "⏸️";
+
+        musicButton.classList.add("playing");
+
+        musicStatus.textContent =
+            "Muzik sedang dimainkan 🎵";
+
+    } else {
+
+        musicToggle.textContent = "▶️";
+
+        musicButton.classList.remove("playing");
+
+        musicStatus.textContent =
+            "Tekan ▶️ untuk memainkan muzik.";
+
+    }
+
+}
+
+
+
+
+
+/* Default volume */
+
+music.volume = 0.35;
+
+// Pantau sumber audio supaya kegagalan fail tidak mengganggu aplikasi.
+music.addEventListener("error", function() {
+    musicPlaying = false;
+    updateMusicUI();
+    musicStatus.textContent =
+        "Fail muzik tidak dapat dimuatkan. Sila semak URL audio.";
+});
+
+music.addEventListener("ended", function() {
+    // Loop sepatutnya mengelakkan keadaan ini, tetapi kekalkan UI selari.
+    musicPlaying = !music.paused;
+    updateMusicUI();
+});
+
+
+
+
+
+/* =====================================================
+   LAUNCH APPLICATION
+====================================================== */
+
+function launchApp() {
+    /*
+     * PENTING:
+     * music.play() mesti dipanggil terus dalam event click.
+     * Jangan letakkan requestFullscreen(), setTimeout(), atau await
+     * sebelum play(), kerana sesetengah browser boleh kehilangan
+     * transient user activation.
+     */
+
+    // Set audio state BEFORE starting playback.
+    music.volume = 0.35;
+    music.muted = false;
+
+    /*
+     * Mulakan audio dahulu — masih dalam user gesture daripada
+     * butang "Mulakan Misi Sekarang".
+     */
+    try {
+        const playPromise = music.play();
+
+        if (playPromise && typeof playPromise.then === "function") {
+            playPromise
+                .then(function() {
+                    musicPlaying = true;
+                    updateMusicUI();
+                })
+                .catch(function(error) {
+                    console.log("Audio autoplay disekat:", error);
+                    musicPlaying = false;
+                    updateMusicUI();
+                    musicStatus.textContent =
+                        "Tekan ▶️ untuk memainkan muzik.";
+                });
+        } else {
+            musicPlaying = true;
+            updateMusicUI();
+        }
+    } catch (error) {
+        console.log("Audio tidak dapat dimainkan:", error);
+        musicPlaying = false;
+        updateMusicUI();
+    }
+
+    // Hide launch screen immediately.
+    overlay.classList.add("hidden");
+
+    // Show Apps Script application immediately.
+    iframe.style.display = "block";
+
+    /*
+     * Fullscreen dibuat SELEPAS play() dipanggil.
+     * Jika fullscreen gagal, aplikasi dan audio tetap berjalan.
+     */
+    try {
+        const element = document.documentElement;
 
         if (
-            iframe &&
-            iframe.contentWindow
+            !document.fullscreenElement &&
+            element.requestFullscreen
         ) {
+            const fullscreenPromise = element.requestFullscreen();
 
-            iframe.contentWindow\.postMessage(
-                {
-                    action: "toggleDrawer"
-                },
-                "\*"
-            );
-
+            if (
+                fullscreenPromise &&
+                typeof fullscreenPromise.catch === "function"
+            ) {
+                fullscreenPromise.catch(function(error) {
+                    console.log(
+                        "Fullscreen tidak tersedia:",
+                        error
+                    );
+                });
+            }
+        } else if (
+            !document.webkitFullscreenElement &&
+            element.webkitRequestFullscreen
+        ) {
+            element.webkitRequestFullscreen();
         }
+    } catch (error) {
+        console.log(
+            "Fullscreen tidak tersedia:",
+            error
+        );
+    }
+}
 
+
+
+/* =====================================================
+   IFRAME DRAWER
+====================================================== */
+
+function toggleIframeDrawer() {
+
+    if (
+        iframe &&
+        iframe.contentWindow
+    ) {
+
+        iframe.contentWindow.postMessage(
+            {
+                action: "toggleDrawer"
+            },
+            "*"
+        );
+
+    }
+
+}
+
+
+
+
+
+/* =====================================================
+   LOGOUT
+====================================================== */
+
+function handleLogout() {
+
+    /*
+     * Stop audio.
+     */
+
+    try {
+
+        music.pause();
+
+        music.currentTime = 0;
+
+    } catch (error) {
+        console.log(error);
     }
 
 
 
-    /\* =====================================================
-       LOGOUT
-    \====================================================== \*/
-
-    function handleLogout() {
-
-        /\*
-         \* Stop audio.
-         \*/
-
-        try {
-
-            music.pause();
-
-            music.currentTime = 0;
-
-        } catch (error) {
-            console.log(error);
-        }
 
 
+    /*
+     * Exit fullscreen.
+     */
 
-        /\*
-         \* Exit fullscreen.
-         \*/
+    try {
 
-        try {
+        if (
+            document.fullscreenElement &&
+            document.exitFullscreen
+        ) {
 
-            if (
-                document.fullscreenElement &&
-                document.exitFullscreen
-            ) {
+            document.exitFullscreen();
 
-                document.exitFullscreen();
+        } else if (
+            document.webkitFullscreenElement &&
+            document.webkitExitFullscreen
+        ) {
 
-            } else if (
-                document.webkitFullscreenElement &&
-                document.webkitExitFullscreen
-            ) {
-
-                document.webkitExitFullscreen();
-
-            }
-
-        } catch (error) {
-
-            console.log(
-                "Gagal keluar fullscreen:",
-                error
-            );
+            document.webkitExitFullscreen();
 
         }
 
+    } catch (error) {
 
-
-        /\*
-         \* Hide iframe.
-         \*/
-
-        iframe.style.display = "none";
-
-
-
-        /\*
-         \* Show launch screen again.
-         \*/
-
-        overlay.classList.remove("hidden");
-
-
-
-        /\*
-         \* Reload application state.
-         \*/
-
-        setTimeout(
-            function() {
-                window\.location.reload();
-            },
-            100
+        console.log(
+            "Gagal keluar fullscreen:",
+            error
         );
 
     }
 
 
 
-    /\* =====================================================
-       MESSAGE HANDLER
-    \====================================================== \*/
 
-    window\.addEventListener(
-        "message",
-        function(event) {
 
-            /\*
-             \* Do not blindly trust arbitrary messages
-             \* for application logic.
-             \*/
+    /*
+     * Hide iframe.
+     */
 
-            if (
-                !event ||
-                !event.data ||
-                typeof event.data !== "object"
-            ) {
-                return;
-            }
+    iframe.style.display = "none";
 
 
 
-            if (
-                event.data.action ===
-                "toggleMusic"
-            ) {
-
-                toggleMusic();
-
-            }
 
 
+    /*
+     * Show launch screen again.
+     */
 
-            if (
-                event.data.action ===
-                "toggleDrawer"
-            ) {
-
-                toggleIframeDrawer();
-
-            }
-
-        }
-    );
+    overlay.classList.remove("hidden");
 
 
 
-    /\* =====================================================
-       INITIAL STATE
-    \====================================================== \*/
 
-    document.addEventListener(
-        "DOMContentLoaded",
+
+    /*
+     * Reload application state.
+     */
+
+    setTimeout(
         function() {
-
-            iframe.style.display = "none";
-
-            overlay.classList.remove("hidden");
-
-            music.volume = 0.35;
-
-            updateMusicUI();
-
-        }
+            window.location.reload();
+        },
+        100
     );
 
-\</script>
+}
+
+
+
+
+
+/* =====================================================
+   MESSAGE HANDLER
+====================================================== */
+
+window.addEventListener(
+    "message",
+    function(event) {
+
+        /*
+         * Do not blindly trust arbitrary messages
+         * for application logic.
+         */
+
+        if (
+            !event ||
+            !event.data ||
+            typeof event.data !== "object"
+        ) {
+            return;
+        }
+
+
+
+
+
+        if (
+            event.data.action ===
+            "toggleMusic"
+        ) {
+
+            toggleMusic();
+
+        }
+
+
+
+
+
+        if (
+            event.data.action ===
+            "toggleDrawer"
+        ) {
+
+            toggleIframeDrawer();
+
+        }
+
+    }
+);
+
+
+
+
+
+/* =====================================================
+   INITIAL STATE
+====================================================== */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function() {
+
+        iframe.style.display = "none";
+
+        overlay.classList.remove("hidden");
+
+        music.volume = 0.35;
+
+        updateMusicUI();
+
+    }
+);
+
+
+</script>
 
 </body>
 </html>
